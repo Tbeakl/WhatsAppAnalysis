@@ -7,9 +7,20 @@ type nameChange struct {
 	NewName  string    `json:"newName"`
 }
 
+type userMessage struct {
+	DateTime time.Time `json:"DateTime"`
+	Content  string    `json:"Content"`
+}
+
 type message struct {
 	DateTime time.Time `json:"DateTime"`
 	Content  string    `json:"Content"`
+	User     string    `json:"User"`
+}
+
+type dateMessage struct {
+	Content string `json:"Content"`
+	User    string `json:"User"`
 }
 
 type barChartOutput struct {
@@ -23,8 +34,8 @@ type lineChartOutput struct {
 }
 
 type daySummaryInfo struct {
-	numberOfMesages           int     `json:"numberOfMessages"`
-	averageMessageLength      float64 `json:"averageMessageLength"`
-	userWhoSentMostMessages   string  `json:"userWhoSentMostMessages"`
-	userWhoSentLongestMessage string  `json:"userWhoSentLongestMessage"`
+	NumberOfMesages           int     `json:"NumberOfMessages"`
+	AverageMessageLength      float64 `json:"AverageMessageLengthWords"`
+	UserWhoSentLongestMessage string  `json:"UserWhoSentLongestMessage"`
+	LengthOfLongestMessage    int     `json:"LengthOfLongestMessageWords"`
 }

@@ -22,22 +22,78 @@ func rangeDate(start, end time.Time) func() time.Time {
 	}
 }
 
-func findMaxMessageLengthWords(messages []message) int {
+func mostCommonString(values ...string) string {
+	stringCounts := make(map[string]int)
+	for _, str := range values {
+		stringCounts[str]++
+	}
+	mostCommonString := ""
+	mostCommonCount := -1
+	for str, count := range stringCounts {
+		if count > mostCommonCount {
+			mostCommonString = str
+			mostCommonCount = count
+		}
+	}
+	return mostCommonString
+}
+
+func averageStringLength(values ...string) float64 {
+	totalLength := 0
+	for _, str := range values {
+		totalLength += len(str)
+	}
+	return float64(totalLength) / float64(len(values))
+}
+
+func averageNumberOfWords(values ...string) float64 {
+	totalLength := 0
+	for _, str := range values {
+		totalLength += len(strings.Split(str, " "))
+	}
+	return float64(totalLength) / float64(len(values))
+}
+
+func findMaxStringLengthWords(values ...string) int {
 	maxLength := 0
-	for _, element := range messages {
-		if len(strings.Split(element.Content, " ")) > maxLength {
-			maxLength = len(strings.Split(element.Content, " "))
+	for _, element := range values {
+		if len(strings.Split(element, " ")) > maxLength {
+			maxLength = len(strings.Split(element, " "))
 		}
 	}
 	return maxLength
 }
 
-func findMaxMessageLengthCharacters(messages []message) int {
+func findMaxStringLengthCharacters(values ...string) int {
 	maxLength := 0
-	for _, element := range messages {
-		if len(element.Content) > maxLength {
-			maxLength = len(element.Content)
+	for _, element := range values {
+		if len(element) > maxLength {
+			maxLength = len(element)
 		}
 	}
 	return maxLength
+}
+
+func extractUserMessageContent(messages []userMessage) []string {
+	output := make([]string, len(messages))
+	for i, message := range messages {
+		output[i] = message.Content
+	}
+	return output
+}
+
+func extractDateMessageContent(messages []dateMessage) []string {
+	output := make([]string, len(messages))
+	for i, message := range messages {
+		output[i] = message.Content
+	}
+	return output
+}
+
+func extractMessageContent(messages []message) []string {
+	output := make([]string, len(messages))
+	for i, message := range messages {
+		output[i] = message.Content
+	}
+	return output
 }

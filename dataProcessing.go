@@ -86,9 +86,9 @@ func removeAllNotifications(file []string, messageStartRegexp regexp.Regexp, wha
 	return output
 }
 
-func splitByUsers(file []string, messageStartRegexp regexp.Regexp, whatsAppNotificationRegexp regexp.Regexp) map[string][]message {
+func makeIntoMessages(file []string, messageStartRegexp regexp.Regexp) []message {
 	lastLine := ""
-	var messagesByUser map[string][]message = make(map[string][]message)
+	var messages []message = make([]message, 0)
 
 	for i := len(file) - 1; i >= 0; i-- {
 		line := file[i]
@@ -103,7 +103,7 @@ func splitByUsers(file []string, messageStartRegexp regexp.Regexp, whatsAppNotif
 			indexOfSetInput := 20 + strings.Index(line[20:], ":")
 			user := line[20:indexOfSetInput]
 			messageContent := line[indexOfSetInput+1:] + lastLine
-			messagesByUser[user] = append(messagesByUser[user], message{time, messageContent})
+			messages = append(messages, message{time, messageContent, user})
 
 			lastLine = ""
 		} else {
@@ -111,6 +111,25 @@ func splitByUsers(file []string, messageStartRegexp regexp.Regexp, whatsAppNotif
 			lastLine = line + lastLine
 		}
 	}
+	return messages
+}
+
+func splitByUsers(messages []message) map[string][]userMessage {
+	var messagesByUser map[string][]userMessage = make(map[string][]userMessage)
+
+	for _, message := range messages {
+		messagesByUser[message.User] = append(messagesByUser[message.User], userMessage{message.DateTime, message.Content})
+	}
 
 	return messagesByUser
+}
+
+func splitByDay(messages []message) map[time.Time][]dateMessage {
+	output := make(map[time.Time][]dateMessage)
+	for _, message := range messages {
+		year, month, day := message.DateTime.Date()
+		date := time.Date(year, month, day, 0, 0, 0, 0, time.UTC)
+		output[date] = append(output[date], dateMessage{message.Content, message.User})
+	}
+	return output
 }

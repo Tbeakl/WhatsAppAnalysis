@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 	"regexp"
+	"time"
 )
 
 func main() {
@@ -24,15 +25,16 @@ func main() {
 	textlines = makeUsernameConsistent(textlines, *messageStartRegexp, *whatsAppNotificationRegexp)
 	textlines = removeUnusedNotifications(textlines, *messageStartRegexp, *whatsAppNotificationRegexp)
 
-	var groupName []nameChange = allNameChanges(textlines, *messageStartRegexp, *whatsAppNotificationRegexp)
+	allNameChanges(textlines, *messageStartRegexp, *whatsAppNotificationRegexp, filename)
 
 	//Some further data cleaning and processing
 	textlines = removeAllNotifications(textlines, *messageStartRegexp, *whatsAppNotificationRegexp)
+	messages := makeIntoMessages(textlines, *messageStartRegexp)
+	messagesByUser := splitByUsers(messages)
+	messagesByDate := splitByDay(messages)
 
-	messagesByUser := splitByUsers(textlines, *messageStartRegexp, *whatsAppNotificationRegexp)
-
-	outputGroupNames(groupName, filename)
 	numberOfMessagesByUsers(messagesByUser, filename)
 	numberOfMessagesByLengthCharactersByUsers(messagesByUser, filename)
 	numberOfMessagesByLengthWordsByUsers(messagesByUser, filename)
+	dateSummary(messagesByDate, time.Date(2020, 10, 01, 0, 0, 0, 0, time.UTC), time.Now(), filename)
 }
