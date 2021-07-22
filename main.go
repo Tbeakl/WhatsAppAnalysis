@@ -24,7 +24,6 @@ func main() {
 
 	for i := len(textlines) - 1; i >= 0; i-- {
 		line := textlines[i]
-		fmt.Println(line)
 		messageStart, err := regexp.MatchString("\\d\\d/\\d\\d/\\d\\d\\d\\d, \\d\\d:\\d\\d - .*:.*", line)
 		if err != nil {
 			fmt.Printf("Error on regex with string %s \n\r", line)
@@ -39,14 +38,9 @@ func main() {
 			}
 			indexOfSetInput := 20 + strings.Index(line[20:], ":")
 			user := line[20:indexOfSetInput]
-			if user == "+44 7586 685297" {
-				// fmt.Println(user)
-			}
-			// _, new := userNameChanger["+447586685297"]
-			// fmt.Println(new)
+
 			newUser, ok := userNameChanger[user]
 			if ok {
-				fmt.Printf("Name Changed " + user + " to " + newUser)
 				user = newUser
 			}
 
@@ -66,18 +60,15 @@ func main() {
 			if whatsAppNotification {
 				switch {
 				case strings.Contains(line, " changed to "):
-					// fmt.Println("Change of user name " + line)
 					oldName := strings.Split(line, " changed to ")[0][20:]
 					newName := strings.Split(line, " changed to ")[1]
-					oldName = strings.ReplaceAll(oldName, " ", " ")
-					newName = strings.ReplaceAll(newName, " ", " ")
+					oldName = strings.ReplaceAll(oldName, " ", " ") //These are changing nonbreaking spaces in to normal spaces
+					newName = strings.ReplaceAll(newName, " ", " ")
 					_, changed := userNameChanger[newName]
 					if changed {
 						newName = userNameChanger[newName]
 					}
-					// fmt.Println(oldName + " to " + newName)
 					userNameChanger[oldName] = newName
-
 				case strings.Contains(line, " changed the subject from "), strings.Contains(line, " created group "):
 					date := line[0:17]
 					time, err := time.Parse("02/01/2006, 15:04", date)
@@ -87,7 +78,6 @@ func main() {
 					newName := line[strings.LastIndex(line[:len(line)-1], "\"")+1 : len(line)-1]
 					groupName = append(groupName, nameChange{DateTime: time, NewName: newName})
 				default:
-					// fmt.Println("Ignore Line " + line)
 				}
 			} else {
 				//This means that it can go into last line as a prepend
@@ -98,10 +88,10 @@ func main() {
 
 	lastLine = ""
 
-	// outputGroupNames(groupName, filename)
+	outputGroupNames(groupName, filename)
 	numberOfMessagesByUsers(messagesByUser, filename)
-	// numberOfMessagesByLengthCharactersByUsers(messagesByUser, filename)
-	// numberOfMessagesByLengthWordsByUsers(messagesByUser, filename)
+	numberOfMessagesByLengthCharactersByUsers(messagesByUser, filename)
+	numberOfMessagesByLengthWordsByUsers(messagesByUser, filename)
 }
 
 func readInFile(filename string) []string {
