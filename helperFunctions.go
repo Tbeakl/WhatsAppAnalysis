@@ -22,6 +22,7 @@ func rangeDate(start, end time.Time) func() time.Time {
 	}
 }
 
+//Returns the string which is most common
 func mostCommonString(values ...string) string {
 	stringCounts := make(map[string]int)
 	for _, str := range values {
@@ -38,6 +39,7 @@ func mostCommonString(values ...string) string {
 	return mostCommonString
 }
 
+//Calculates the average string length in characters
 func averageStringLength(values ...string) float64 {
 	totalLength := 0
 	for _, str := range values {
@@ -46,10 +48,11 @@ func averageStringLength(values ...string) float64 {
 	return float64(totalLength) / float64(len(values))
 }
 
+//Calculates the average number of words in a string
 func averageNumberOfWords(values ...string) float64 {
 	totalLength := 0
 	for _, str := range values {
-		totalLength += len(strings.Split(str, " "))
+		totalLength += len(removeEmptyStrings(strings.Split(str, " ")))
 	}
 	return float64(totalLength) / float64(len(values))
 }
@@ -58,7 +61,7 @@ func findMaxStringLengthWords(values ...string) int {
 	maxLength := 0
 	for _, element := range values {
 		if len(strings.Split(element, " ")) > maxLength {
-			maxLength = len(strings.Split(element, " "))
+			maxLength = len(removeEmptyStrings(strings.Split(element, " ")))
 		}
 	}
 	return maxLength
@@ -96,4 +99,17 @@ func extractMessageContent(messages []message) []string {
 		output[i] = message.Content
 	}
 	return output
+}
+
+//From https://gist.github.com/johnpili/84c3064d30a9b041c87e43ba4bcb63a2
+// removeEmptyStrings - Use this to remove empty string values inside an array.
+// This happens when allocation is bigger and empty
+func removeEmptyStrings(s []string) []string {
+	var r []string
+	for _, str := range s {
+		if str != "" {
+			r = append(r, str)
+		}
+	}
+	return r
 }
