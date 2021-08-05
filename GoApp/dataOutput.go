@@ -46,7 +46,6 @@ func numberOfMessagesByLengthCharactersByUsers(messagesByUsers map[string][]user
 
 	}
 	jsonData, _ := json.MarshalIndent(numberOfMessagesLengthPerUsers, "", "	")
-
 	ioutil.WriteFile(baseFileName+"\\NumberOfMessages_LengthCharacters_Users.json", jsonData, os.ModePerm)
 }
 
@@ -124,4 +123,18 @@ func dateSummary(messagesByDate map[time.Time][]dateMessage, startDate time.Time
 	}
 	jsonData, _ := json.MarshalIndent(summaryData, "", "	")
 	ioutil.WriteFile(baseFileName+"\\DateSummary_"+startDate.Format("2006-01-02")+"_"+endDate.Format("2006-01-02")+".json", jsonData, os.ModePerm)
+}
+
+func basicSummary(messagesByDate map[time.Time][]dateMessage, messagesByUser map[string][]userMessage, messages []message, startDate time.Time, endDate time.Time, baseFileName string) {
+	mostPopularMessage := mostCommonString(extractMessageContent(messages)...)
+	mostActiveUser := elementWithLargestSlice(messagesByUser)
+	result := overallSummaryInfo{MostPopularMessage: mostPopularMessage,
+		MostPopularMessageCount:          countOfString(mostPopularMessage, extractMessageContent(messages)),
+		NumberOfMessagesSent:             len(messages),
+		NumberOfDaysWithActivity:         len(messagesByDate),
+		NumberOfDaysAnalysed:             int(endDate.Sub(startDate).Hours() / 24),
+		MostActiveUser:                   mostActiveUser,
+		NumberOfMessagesByMostActiveUser: len(messagesByUser[mostActiveUser])}
+	jsonData, _ := json.Marshal(result)
+	ioutil.WriteFile(baseFileName+"\\Summary.json", jsonData, os.ModePerm)
 }

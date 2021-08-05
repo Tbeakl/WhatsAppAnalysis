@@ -39,3 +39,13 @@ type daySummaryInfo struct {
 	UserWhoSentLongestMessage string  `json:"UserWhoSentLongestMessage"`
 	LengthOfLongestMessage    int     `json:"LengthOfLongestMessageWords"`
 }
+
+type overallSummaryInfo struct {
+	MostPopularMessage               string `json:"MostPopularMessage"`
+	MostPopularMessageCount          int    `json:"MostPopularMessageCount"`
+	NumberOfMessagesSent             int    `json:"NumberOfMessagesSent"`
+	NumberOfDaysWithActivity         int    `json:"NumberOfDaysWithActivity"`
+	NumberOfDaysAnalysed             int    `json:"NumberOfDaysAnalysed"`
+	MostActiveUser                   string `json:"MostActiveUser"`
+	NumberOfMessagesByMostActiveUser int    `json:"NumberOfMessagesByMostActiveUser"`
+}

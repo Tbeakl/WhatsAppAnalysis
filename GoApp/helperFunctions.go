@@ -77,6 +77,28 @@ func findMaxStringLengthCharacters(values ...string) int {
 	return maxLength
 }
 
+func countOfString(element string, values []string) int {
+	count := 0
+	for _, v := range values {
+		if v == element {
+			count++
+		}
+	}
+	return count
+}
+
+func elementWithLargestSlice(input map[string][]userMessage) string {
+	largestLength := 0
+	var largestElement string
+	for k, v := range input {
+		if len(v) > largestLength {
+			largestElement = k
+			largestLength = len(v)
+		}
+	}
+	return largestElement
+}
+
 func extractUserMessageContent(messages []userMessage) []string {
 	output := make([]string, len(messages))
 	for i, message := range messages {
