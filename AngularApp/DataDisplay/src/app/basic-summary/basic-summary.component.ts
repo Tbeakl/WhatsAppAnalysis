@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { summaryDataStructure } from '../app.component';
 
 @Component({
-  selector: 'app-basic-summary',
+  selector: 'basic-summary',
   templateUrl: './basic-summary.component.html',
   styleUrls: ['./basic-summary.component.less']
 })

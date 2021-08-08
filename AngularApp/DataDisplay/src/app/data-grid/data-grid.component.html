@@ -1,15 +1,16 @@
 <div nz-row [nzGutter]="8">
-    <div nz-col [nzSpan]="12">
-        <app-basic-summary [data]="summaryData"></app-basic-summary>
+    <div nz-col [nzSpan]="8">
+        <basic-summary [data]="summaryData"></basic-summary>
+    </div>
+    <div nz-col [nzSpan]="16">
+        <heat-map-calendar [data]="dateUsageData" title="Usage over time"></heat-map-calendar>
+    </div>
+</div>
+<div nz-row [nzGutter]="8">
+    <div nz-col [nzSpan]="16">
+        <heat-map-calendar [data]="dateAverageLengthData" title="Average message length over time"></heat-map-calendar>
     </div>
     <div nz-col [nzSpan]="8">
-        <nz-card nzTitle="Usage over time">
-            <p>This is where the graph will go which shows the usage overtime and with the two date pickers below it</p>
-        </nz-card>
-    </div>
-    <div nz-col [nzSpan]="8">
-        <nz-card nzTitle="Card title">
-            <p>Card content</p>
-        </nz-card>
+
     </div>
 </div>

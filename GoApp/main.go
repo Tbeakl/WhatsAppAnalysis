@@ -10,7 +10,8 @@ import (
 func main() {
 	filename := os.Args[1]
 	textlines := readInFile(filename + ".txt")
-
+	filename = "Data_" + filename
+	os.Mkdir(filename, os.ModePerm)
 	messageStartRegexp, err := regexp.Compile(`\d\d/\d\d/\d\d\d\d, \d\d:\d\d - .*:.*`)
 	if err != nil {
 		fmt.Printf("An error was returned in the message start compilation %s", err)

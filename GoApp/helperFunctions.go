@@ -135,3 +135,22 @@ func removeEmptyStrings(s []string) []string {
 	}
 	return r
 }
+
+func removeMessages(content []string, messagesToRemove ...string) []string {
+	var output []string
+	for _, v := range content {
+		if !contains(messagesToRemove, v) {
+			output = append(output, v)
+		}
+	}
+	return output
+}
+
+func contains(slice []string, element string) bool {
+	for _, v := range slice {
+		if v == element {
+			return true
+		}
+	}
+	return false
+}

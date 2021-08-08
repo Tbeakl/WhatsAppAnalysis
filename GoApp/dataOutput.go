@@ -97,7 +97,7 @@ func allNameChanges(file []string, messageStartRegexp regexp.Regexp, whatsAppNot
 }
 
 func dateSummary(messagesByDate map[time.Time][]dateMessage, startDate time.Time, endDate time.Time, baseFileName string) {
-	summaryData := make(map[time.Time]daySummaryInfo)
+	var summaryData []daySummaryInfo
 	for rd := rangeDate(startDate, endDate); ; {
 		date := rd()
 		if date.IsZero() {
@@ -106,7 +106,7 @@ func dateSummary(messagesByDate map[time.Time][]dateMessage, startDate time.Time
 
 		messages, ok := messagesByDate[date]
 		if !ok {
-			summaryData[date] = daySummaryInfo{0, 0.0, "", 0}
+			summaryData = append(summaryData, daySummaryInfo{date, 0, 0.0, "", 0})
 			continue
 		}
 		messagesContent := extractDateMessageContent(messages)
@@ -119,18 +119,21 @@ func dateSummary(messagesByDate map[time.Time][]dateMessage, startDate time.Time
 				break
 			}
 		}
-		summaryData[date] = daySummaryInfo{len(messages), averageNumberOfWords(messagesContent...), longestMessageUser, lengthOfLongestMessage}
+		summaryData = append(summaryData, daySummaryInfo{date, len(messages), averageNumberOfWords(messagesContent...), longestMessageUser, lengthOfLongestMessage})
 	}
 	jsonData, _ := json.MarshalIndent(summaryData, "", "	")
-	ioutil.WriteFile(baseFileName+"\\DateSummary_"+startDate.Format("2006-01-02")+"_"+endDate.Format("2006-01-02")+".json", jsonData, os.ModePerm)
+	ioutil.WriteFile(baseFileName+"\\DateSummary.json", jsonData, os.ModePerm)
 }
 
 func basicSummary(messagesByDate map[time.Time][]dateMessage, messagesByUser map[string][]userMessage, messages []message, startDate time.Time, endDate time.Time, baseFileName string) {
-	mostPopularMessage := mostCommonString(extractMessageContent(messages)...)
+	mostPopularMessage := mostCommonString(removeMessages(extractMessageContent(messages), "<Media omitted>", "This message was deleted")...)
+	fmt.Print(mostPopularMessage)
 	mostActiveUser := elementWithLargestSlice(messagesByUser)
 	result := overallSummaryInfo{MostPopularMessage: mostPopularMessage,
 		MostPopularMessageCount:          countOfString(mostPopularMessage, extractMessageContent(messages)),
 		NumberOfMessagesSent:             len(messages),
+		NumberOfMediaMessages:            countOfString("<Media omitted>", extractMessageContent(messages)),
+		NumberOfDeletedMessages:          countOfString("This message was deleted", extractMessageContent(messages)),
 		NumberOfDaysWithActivity:         len(messagesByDate),
 		NumberOfDaysAnalysed:             int(endDate.Sub(startDate).Hours() / 24),
 		MostActiveUser:                   mostActiveUser,

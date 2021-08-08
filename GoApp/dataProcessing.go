@@ -102,7 +102,7 @@ func makeIntoMessages(file []string, messageStartRegexp regexp.Regexp) []message
 
 			indexOfSetInput := 20 + strings.Index(line[20:], ":")
 			user := line[20:indexOfSetInput]
-			messageContent := line[indexOfSetInput+1:] + lastLine
+			messageContent := line[indexOfSetInput+2:] + lastLine
 			messages = append(messages, message{time, messageContent, user})
 
 			lastLine = ""

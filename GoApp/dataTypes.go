@@ -34,15 +34,18 @@ type lineChartOutput struct {
 }
 
 type daySummaryInfo struct {
-	NumberOfMesages           int     `json:"NumberOfMessages"`
-	AverageMessageLength      float64 `json:"AverageMessageLengthWords"`
-	UserWhoSentLongestMessage string  `json:"UserWhoSentLongestMessage"`
-	LengthOfLongestMessage    int     `json:"LengthOfLongestMessageWords"`
+	Date                      time.Time `json:"Date"`
+	NumberOfMesages           int       `json:"NumberOfMessages"`
+	AverageMessageLength      float64   `json:"AverageMessageLengthWords"`
+	UserWhoSentLongestMessage string    `json:"UserWhoSentLongestMessage"`
+	LengthOfLongestMessage    int       `json:"LengthOfLongestMessageWords"`
 }
 
 type overallSummaryInfo struct {
 	MostPopularMessage               string `json:"MostPopularMessage"`
 	MostPopularMessageCount          int    `json:"MostPopularMessageCount"`
+	NumberOfMediaMessages            int    `json:"NumberOfMediaMessages"`
+	NumberOfDeletedMessages          int    `json:"NumberOfDeletedMessages"`
 	NumberOfMessagesSent             int    `json:"NumberOfMessagesSent"`
 	NumberOfDaysWithActivity         int    `json:"NumberOfDaysWithActivity"`
 	NumberOfDaysAnalysed             int    `json:"NumberOfDaysAnalysed"`
