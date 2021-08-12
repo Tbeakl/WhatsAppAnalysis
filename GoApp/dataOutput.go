@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
+	"math"
 	"os"
 	"regexp"
 	"strings"
@@ -15,8 +16,7 @@ func numberOfMessagesByUsers(messagesByUsers map[string][]userMessage, baseFileN
 	for user, messages := range messagesByUsers {
 		numberOfMessages = append(numberOfMessages, barChartOutput{X: user, Y: len(messages)})
 	}
-
-	jsonData, _ := json.MarshalIndent(numberOfMessages, "", "	")
+	jsonData, _ := json.Marshal(numberOfMessages)
 	ioutil.WriteFile(baseFileName+"\\NumberOfMessages_Users.json", jsonData, os.ModePerm)
 }
 
@@ -45,7 +45,7 @@ func numberOfMessagesByLengthCharactersByUsers(messagesByUsers map[string][]user
 		numberOfMessagesLengthPerUsers = append(numberOfMessagesLengthPerUsers, outputStyle{User: user, Series: countOfLength})
 
 	}
-	jsonData, _ := json.MarshalIndent(numberOfMessagesLengthPerUsers, "", "	")
+	jsonData, _ := json.Marshal(numberOfMessagesLengthPerUsers)
 	ioutil.WriteFile(baseFileName+"\\NumberOfMessages_LengthCharacters_Users.json", jsonData, os.ModePerm)
 }
 
@@ -74,7 +74,7 @@ func numberOfMessagesByLengthWordsByUsers(messagesByUsers map[string][]userMessa
 		numberOfMessagesLengthPerUsers = append(numberOfMessagesLengthPerUsers, outputStyle{User: user, Series: countOfLength})
 
 	}
-	jsonData, _ := json.MarshalIndent(numberOfMessagesLengthPerUsers, "", "	")
+	jsonData, _ := json.Marshal(numberOfMessagesLengthPerUsers)
 	ioutil.WriteFile(baseFileName+"\\NumberOfMessages_LengthWords_Users.json", jsonData, os.ModePerm)
 }
 
@@ -88,11 +88,14 @@ func allNameChanges(file []string, messageStartRegexp regexp.Regexp, whatsAppNot
 				fmt.Printf("There was an error parsing the date %s \n\r", date)
 			}
 			newName := line[strings.LastIndex(line[:len(line)-1], "\"")+1 : len(line)-1]
-			groupNames = append(groupNames, nameChange{DateTime: time, NewName: newName})
+			if len(groupNames) > 0 {
+				groupNames[len(groupNames)-1].LengthOfTime = math.Round(time.Sub(groupNames[len(groupNames)-1].DateTime).Hours()*100) / 100
+			}
+			groupNames = append(groupNames, nameChange{DateTime: time, NewName: newName, LengthOfTime: 0})
 		}
 	}
-
-	jsonData, _ := json.MarshalIndent(groupNames, "", "	")
+	groupNames[len(groupNames)-1].LengthOfTime = math.Round(time.Since(groupNames[len(groupNames)-1].DateTime).Hours()*100) / 100
+	jsonData, _ := json.Marshal(groupNames)
 	ioutil.WriteFile(baseFileName+"\\GroupNames.json", jsonData, os.ModePerm)
 }
 
@@ -121,13 +124,12 @@ func dateSummary(messagesByDate map[time.Time][]dateMessage, startDate time.Time
 		}
 		summaryData = append(summaryData, daySummaryInfo{date, len(messages), averageNumberOfWords(messagesContent...), longestMessageUser, lengthOfLongestMessage})
 	}
-	jsonData, _ := json.MarshalIndent(summaryData, "", "	")
+	jsonData, _ := json.Marshal(summaryData)
 	ioutil.WriteFile(baseFileName+"\\DateSummary.json", jsonData, os.ModePerm)
 }
 
 func basicSummary(messagesByDate map[time.Time][]dateMessage, messagesByUser map[string][]userMessage, messages []message, startDate time.Time, endDate time.Time, baseFileName string) {
 	mostPopularMessage := mostCommonString(removeMessages(extractMessageContent(messages), "<Media omitted>", "This message was deleted")...)
-	fmt.Print(mostPopularMessage)
 	mostActiveUser := elementWithLargestSlice(messagesByUser)
 	result := overallSummaryInfo{MostPopularMessage: mostPopularMessage,
 		MostPopularMessageCount:          countOfString(mostPopularMessage, extractMessageContent(messages)),

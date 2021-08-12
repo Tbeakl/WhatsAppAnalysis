@@ -1,11 +1,17 @@
 <body class="background">
-<header>
-  <title>WhatsApp Data Analysis</title>
-  <h1>WhatsApp Data Analysis</h1>
-</header>
+    <header>
+        <title>WhatsApp Data Analysis</title>
+        <h1>WhatsApp Data Analysis</h1>
+    </header>
 
-<div class="background">
-  <data-grid [summaryData]="summaryData" [dateUsageData]="dateUsageData" [dateAverageLengthData]="dateAverageLengthData"></data-grid>
-</div>
-<footer class="background">Henry Batchelor &copy; 2021</footer>
+    <div class="background">
+        <data-grid
+            [summaryData]="summaryData"
+            [dateUsageData]="dateUsageData"
+            [dateAverageLengthData]="dateAverageLengthData"
+            [numberOfMessagesByUser]="numberOfMessagesByUser"
+            [groupNames]="groupNames"
+        ></data-grid>
+    </div>
+    <footer class="background">Henry Batchelor &copy; 2021</footer>
 </body>

@@ -3,14 +3,35 @@
         <basic-summary [data]="summaryData"></basic-summary>
     </div>
     <div nz-col [nzSpan]="16">
-        <heat-map-calendar [data]="dateUsageData" title="Usage over time"></heat-map-calendar>
+        <heat-map-calendar
+            [data]="dateUsageData"
+            [colourScheme]="colorScheme"
+            title="Usage over time"
+        ></heat-map-calendar>
     </div>
 </div>
 <div nz-row [nzGutter]="8">
     <div nz-col [nzSpan]="16">
-        <heat-map-calendar [data]="dateAverageLengthData" title="Average message length over time"></heat-map-calendar>
+        <heat-map-calendar
+            [data]="dateAverageLengthData"
+            [colourScheme]="colorScheme"
+            title="Average message length over time"
+        ></heat-map-calendar>
     </div>
     <div nz-col [nzSpan]="8">
+        <group-names [data]="groupNames"></group-names>
+    </div>
+</div>
 
+<div nz-row [nzGutter]="8">
+    <div nz-col [nzSpan]="24">
+        <bar-chart
+        [inputData]="numberOfMessagesByUser"
+        xAxisLabel="Users"
+        yAxisLabel="Number of Messages"
+        title="Number of messages sent by user"
+        [colourScheme]="colorScheme"
+        sortingScheme="Des"
+    ></bar-chart>
     </div>
 </div>

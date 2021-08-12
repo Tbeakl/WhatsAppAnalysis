@@ -1,21 +1,34 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { summaryDataStructure, valueByDate } from '../app.component';
+import { BarChartPoint, GroupName, summaryDataStructure, valueByDate } from '../app.component';
 
 @Component({
-  selector: 'data-grid',
-  templateUrl: './data-grid.component.html',
-  styleUrls: ['./data-grid.component.less']
+	selector: 'data-grid',
+	templateUrl: './data-grid.component.html',
+	styleUrls: ['./data-grid.component.less'],
 })
 export class DataGridComponent implements OnInit {
+	@Input() summaryData?: summaryDataStructure;
+	@Input() dateUsageData: valueByDate[] = [];
+	@Input() dateAverageLengthData: valueByDate[] = [];
+	@Input() numberOfMessagesByUser: BarChartPoint[] = [];
+	@Input() groupNames: GroupName[] = [];
 
-  @Input() summaryData?: summaryDataStructure;
-  @Input() dateUsageData: valueByDate[] = [];
-  @Input() dateAverageLengthData: valueByDate[] = [];
+	public colorScheme = {
+		domain: [
+			'#647c8a',
+			'#3f51b5',
+			'#2196f3',
+			'#00b862',
+			'#afdf0a',
+			'#a7b61a',
+			'#f3e562',
+			'#ff9800',
+			'#ff5722',
+			'#ff4514',
+		],
+	};
 
+	constructor() {}
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
+	ngOnInit(): void {}
 }

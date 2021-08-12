@@ -3,8 +3,9 @@ package main
 import "time"
 
 type nameChange struct {
-	DateTime time.Time `json:"DateTime"`
-	NewName  string    `json:"newName"`
+	DateTime     time.Time `json:"Date"`
+	NewName      string    `json:"Name"`
+	LengthOfTime float64   `json:"LengthOfTime"`
 }
 
 type userMessage struct {

@@ -1,0 +1,20 @@
+<nz-card [nzTitle]="title">
+    <div nz-row>
+        <div nz-col [nzSpan]="18">
+            <ngx-charts-bar-vertical
+            [scheme]="colourScheme"
+            [xAxisLabel]="xAxisLabel"
+            [yAxisLabel]="yAxisLabel"
+            xAxis="true"
+            yAxis="true"
+            [showXAxisLabel]="true"
+            [showYAxisLabel]="true"
+            [results]="displayData"
+            [barPadding]="1"
+        ></ngx-charts-bar-vertical>
+        </div>
+        <div nz-col [nzSpan]="6">
+            <p>A table will go here where you can search for people and select who you want to be display on the left</p>
+        </div>
+    </div>
+</nz-card>

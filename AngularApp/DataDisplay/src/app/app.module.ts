@@ -13,10 +13,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzGridModule } from 'ng-zorro-antd/grid';
+import { NzTableModule } from 'ng-zorro-antd/table';
 import { DataGridComponent } from './data-grid/data-grid.component';
 import { BasicSummaryComponent } from './basic-summary/basic-summary.component';
 import { HeatMapCalendarComponent } from './heat-map-calendar/heat-map-calendar.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { BarChartComponent } from './bar-chart/bar-chart.component';
+import { GroupNamesComponent } from './group-names/group-names.component';
 
 registerLocaleData(uk);
 
@@ -25,7 +28,9 @@ registerLocaleData(uk);
     AppComponent,
     DataGridComponent,
     BasicSummaryComponent,
-    HeatMapCalendarComponent
+    HeatMapCalendarComponent,
+    BarChartComponent,
+    GroupNamesComponent
   ],
   imports: [
     BrowserModule,
@@ -36,6 +41,7 @@ registerLocaleData(uk);
     NzButtonModule,
     NzCardModule,
     NzGridModule,
+    NzTableModule,
     NgxChartsModule
   ],
   providers: [{ provide: NZ_I18N, useValue: uk_UA }],
