@@ -53,3 +53,23 @@ type overallSummaryInfo struct {
 	MostActiveUser                   string `json:"MostActiveUser"`
 	NumberOfMessagesByMostActiveUser int    `json:"NumberOfMessagesByMostActiveUser"`
 }
+
+type line struct {
+	Gradient   float64 `json:"m"`
+	YIntercept float64 `json:"c"`
+}
+
+type point struct {
+	X float64 `json:"x"`
+	Y float64 `json:"y"`
+}
+
+type userSummary struct {
+	User                    string  `json:"User"`
+	NumberOfMessagesSent    int     `json:"NumberOfMessagesSent"`
+	NumberOfMessagesDeleted int     `json:"NumberOfMessagesDeleted"`
+	NumberOfMediaMessages   int     `json:"NumberOfMediaMessages"`
+	AverageMessageLength    float64 `json:"AverageMessageLength"`
+	MostCommonMessage       string  `json:"MostCommonMessage"`
+	MostCommonMessageCount  int     `json:"MostCommonMessageCount"`
+}

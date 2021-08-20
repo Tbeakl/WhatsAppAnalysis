@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import summaryDataImport from '../../data/Summary.json';
 import dateUsageDataImport from '../../data/DateSummary.json';
-import numberOfMessagesByUserImport from '../../data/NumberOfMessages_Users.json'
+import userSummaryImport from '../../data/UserSummary.json'
 import groupNameImport from '../../data/GroupNames.json'
 
 @Component({
@@ -14,18 +14,20 @@ export class AppComponent implements OnInit {
     public summaryData: summaryDataStructure = summaryDataImport;
     public dateUsageData: valueByDate[] = this.getNumberOfMessagesSent(dateUsageDataImport);
     public dateAverageLengthData: valueByDate[] = this.getAverageMessageLength(dateUsageDataImport);
-    public numberOfMessagesByUser: BarChartPoint[] = numberOfMessagesByUserImport;
+    public numberOfMessagesByUser: BarChartPoint[] = this.getNumberOfMessagesSentByUser(userSummaryImport);
     public groupNamesImported: GroupName[] = groupNameImport;
     public groupNames: GroupName[] = [];
 
     ngOnInit() {
         this.groupNames = this.groupNamesImported.map(item => {
-            return{
+            return {
                 Name: item.Name,
                 Date: new Date(item.Date),
                 LengthOfTime: item.LengthOfTime
             }
-        })
+        });
+        // console.log(userSummaryImport);
+        // // this.numberOfMessagesByUser = ;
     }
 
     getNumberOfMessagesSent(dateUsageDataImport: dateData[]): valueByDate[] {
@@ -53,6 +55,16 @@ export class AppComponent implements OnInit {
         }
         return output;
     }
+
+    getNumberOfMessagesSentByUser(userSummaryImport: userSummaryDataStructure[]): BarChartPoint[] {
+        let output: BarChartPoint[] = [];
+        userSummaryImport.forEach(user => {
+            console.log(user.User)
+            console.log(user.NumberOfMessagesSent)
+            output.push({x: user.User, y:user.NumberOfMessagesSent});
+        });
+        return output;
+    }
 }
 
 export interface summaryDataStructure {
@@ -65,6 +77,16 @@ export interface summaryDataStructure {
     NumberOfDaysAnalysed: number;
     MostActiveUser: string;
     NumberOfMessagesByMostActiveUser: number;
+}
+
+export interface userSummaryDataStructure {
+    User: string;
+    NumberOfMessagesSent: number;
+    NumberOfMessagesDeleted: number;
+    NumberOfMediaMessages: number;
+    AverageMessageLength: number;
+    MostCommonMessage: string;
+    MostCommonMessageCount: number;
 }
 
 export interface valueByDate {

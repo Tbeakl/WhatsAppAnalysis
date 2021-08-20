@@ -154,3 +154,28 @@ func contains(slice []string, element string) bool {
 	}
 	return false
 }
+
+func leastSquares(series map[point]float64) line {
+	xMean := 0.0
+	yMean := 0.0
+	totalFrequency := 0.0
+	for point, frequency := range series {
+		totalFrequency += frequency
+		xMean += point.X * frequency
+		yMean += point.Y * frequency
+	}
+
+	xMean /= totalFrequency
+	yMean /= totalFrequency
+	covariance := 0.0
+	xVariance := 0.0
+	for point, frequency := range series {
+		xDiff := point.X - xMean
+		yDiff := point.Y - yMean
+		covariance += xDiff * yDiff * frequency
+		xVariance += xDiff * xDiff * frequency
+	}
+	gradient := covariance / xVariance
+	yIntercept := yMean - xMean*gradient
+	return line{Gradient: gradient, YIntercept: yIntercept}
+}

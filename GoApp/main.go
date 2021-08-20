@@ -33,9 +33,8 @@ func main() {
 	messages := makeIntoMessages(textlines, *messageStartRegexp)
 	messagesByUser := splitByUsers(messages)
 	messagesByDate := splitByDay(messages)
-	numberOfMessagesByUsers(messagesByUser, filename)
-	// numberOfMessagesByLengthCharactersByUsers(messagesByUser, filename)
-	numberOfMessagesByLengthWordsByUsers(messagesByUser, filename)
+	numberOfMessagesByTime(messages, filename)
 	dateSummary(messagesByDate, time.Date(2020, 10, 01, 0, 0, 0, 0, time.UTC), time.Now(), filename)
 	basicSummary(messagesByDate, messagesByUser, messages, messages[0].DateTime, messages[len(messages)-1].DateTime, filename)
+	basicSummaryPerUser(messagesByUser, filename)
 }
