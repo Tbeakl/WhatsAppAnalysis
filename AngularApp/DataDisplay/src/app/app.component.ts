@@ -17,8 +17,9 @@ export class AppComponent implements OnInit {
     public numberOfMessagesByUser: BarChartPoint[] = this.getNumberOfMessagesSentByUser(userSummaryImport);
     public groupNamesImported: GroupName[] = groupNameImport;
     public groupNames: GroupName[] = [];
+    public userSummaries: userSummaryDataStructure[] = userSummaryImport;
 
-    ngOnInit() {
+    public ngOnInit() {
         this.groupNames = this.groupNamesImported.map(item => {
             return {
                 Name: item.Name,
@@ -26,11 +27,9 @@ export class AppComponent implements OnInit {
                 LengthOfTime: item.LengthOfTime
             }
         });
-        // console.log(userSummaryImport);
-        // // this.numberOfMessagesByUser = ;
     }
 
-    getNumberOfMessagesSent(dateUsageDataImport: dateData[]): valueByDate[] {
+    public getNumberOfMessagesSent(dateUsageDataImport: dateData[]): valueByDate[] {
         const output: valueByDate[] = [];
         for (let index = 0; index < dateUsageDataImport.length; index++) {
             const element = dateUsageDataImport[index];
@@ -43,7 +42,7 @@ export class AppComponent implements OnInit {
         return output;
     }
 
-    getAverageMessageLength(dateUsageDataImport: dateData[]): valueByDate[] {
+    public getAverageMessageLength(dateUsageDataImport: dateData[]): valueByDate[] {
         const output: valueByDate[] = [];
         for (let index = 0; index < dateUsageDataImport.length; index++) {
             const element = dateUsageDataImport[index];
@@ -56,11 +55,9 @@ export class AppComponent implements OnInit {
         return output;
     }
 
-    getNumberOfMessagesSentByUser(userSummaryImport: userSummaryDataStructure[]): BarChartPoint[] {
+    public getNumberOfMessagesSentByUser(userSummaryImport: userSummaryDataStructure[]): BarChartPoint[] {
         let output: BarChartPoint[] = [];
         userSummaryImport.forEach(user => {
-            console.log(user.User)
-            console.log(user.NumberOfMessagesSent)
             output.push({x: user.User, y:user.NumberOfMessagesSent});
         });
         return output;

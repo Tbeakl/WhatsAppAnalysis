@@ -20,6 +20,11 @@ import { HeatMapCalendarComponent } from './heat-map-calendar/heat-map-calendar.
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { BarChartComponent } from './bar-chart/bar-chart.component';
 import { GroupNamesComponent } from './group-names/group-names.component';
+import { NzSelectModule } from 'ng-zorro-antd/select';
+import { NzAutocompleteModule } from 'ng-zorro-antd/auto-complete';
+import { NzInputModule } from 'ng-zorro-antd/input';
+import { ScrollingModule } from '@angular/cdk/scrolling';
+import { UserSummaryComponent } from './user-summary/user-summary.component';
 
 registerLocaleData(uk);
 
@@ -30,7 +35,8 @@ registerLocaleData(uk);
     BasicSummaryComponent,
     HeatMapCalendarComponent,
     BarChartComponent,
-    GroupNamesComponent
+    GroupNamesComponent,
+    UserSummaryComponent
   ],
   imports: [
     BrowserModule,
@@ -42,7 +48,11 @@ registerLocaleData(uk);
     NzCardModule,
     NzGridModule,
     NzTableModule,
-    NgxChartsModule
+    NzSelectModule,
+    NzAutocompleteModule,
+    NzInputModule,
+    NgxChartsModule,
+    ScrollingModule
   ],
   providers: [{ provide: NZ_I18N, useValue: uk_UA }],
   bootstrap: [AppComponent]

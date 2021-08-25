@@ -1,0 +1,18 @@
+<nz-card nzTitle="User Summary">
+    <div *ngIf="importedData">
+        <input
+            placeholder="input here"
+            nz-input
+            [(ngModel)]="username"
+            [nzAutocomplete]="auto"
+            (keyup.enter)="updateUser()"
+            (blur)="updateUser()"
+        />
+        <nz-autocomplete [nzDataSource]="userOptions()" nzBackfill #auto></nz-autocomplete>
+    </div>
+    <div class="cardContent" *ngIf="userToDisplay">
+        <p>Their most common message was <span class="messageDisplay">{{userToDisplay.MostCommonMessage}}</span> and they sent it <span class="messageDisplay">{{userToDisplay.MostCommonMessageCount}}</span> time{{userToDisplay.MostCommonMessageCount > 1 ? 's' : ''}}.</p>
+        <p>They sent <span class="messageDisplay">{{userToDisplay.NumberOfMessagesSent}}</span> message{{userToDisplay.NumberOfMessagesSent > 1 ? 's' : ''}}, of which <span class="messageDisplay">{{userToDisplay.NumberOfMessagesDeleted}}</span> {{userToDisplay.NumberOfMessagesDeleted == 1 ? 'was' : 'were'}} deleted, and <span class="messageDisplay">{{userToDisplay.NumberOfMediaMessages}}</span> {{userToDisplay.NumberOfMediaMessages == 1 ? 'was a' : 'were'}} media message{{userToDisplay.NumberOfMediaMessages == 1 ? '' : 's'}}.</p>
+        <p>The average length of their messages was <span class="messageDisplay">{{userToDisplay.AverageMessageLength.toFixed(2)}}</span> words.</p>
+    </div>
+</nz-card>

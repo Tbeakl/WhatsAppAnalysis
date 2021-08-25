@@ -1,7 +1,29 @@
-@import "~ng-zorro-antd/ng-zorro-antd.min.css";
+@import '~ng-zorro-antd/ng-zorro-antd.min.css';
 
 nz-card {
     margin-bottom: 1.25em;
     margin-left: 1.25em;
     margin-right: 1.25em;
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    opacity: 0.1;
+    border-radius: 10px;
+    background: rgba(0, 0, 0, 0.2);
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.2);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.25);
 }
