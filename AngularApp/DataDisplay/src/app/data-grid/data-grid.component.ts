@@ -8,11 +8,13 @@ import { BarChartPoint, GroupName, summaryDataStructure, userSummaryDataStructur
 })
 export class DataGridComponent implements OnInit {
 	@Input() summaryData?: summaryDataStructure;
-	@Input() dateUsageData: valueByDate[] = [];
-	@Input() dateAverageLengthData: valueByDate[] = [];
-	@Input() numberOfMessagesByUser: BarChartPoint[] = [];
-	@Input() groupNames: GroupName[] = [];
-	@Input() userSummaries: userSummaryDataStructure[] = [];
+	@Input() dateUsageData?: valueByDate[];
+	@Input() dateAverageLengthData?: valueByDate[];
+	@Input() numberOfMessagesByUser?: BarChartPoint[];
+	@Input() groupNames?: GroupName[];
+	@Input() userSummaries?: userSummaryDataStructure[];
+	@Input() averageMessageLengthByUsers?: BarChartPoint[];
+	@Input() averageMessageLengthAgainstNumberOfMessages?: any[];
 
 	public colorScheme = {
 		domain: [

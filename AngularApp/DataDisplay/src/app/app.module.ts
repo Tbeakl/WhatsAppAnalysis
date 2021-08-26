@@ -25,6 +25,7 @@ import { NzAutocompleteModule } from 'ng-zorro-antd/auto-complete';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { UserSummaryComponent } from './user-summary/user-summary.component';
+import { ScatterPlotComponent } from './scatter-plot/scatter-plot.component';
 
 registerLocaleData(uk);
 
@@ -36,7 +37,8 @@ registerLocaleData(uk);
     HeatMapCalendarComponent,
     BarChartComponent,
     GroupNamesComponent,
-    UserSummaryComponent
+    UserSummaryComponent,
+    ScatterPlotComponent
   ],
   imports: [
     BrowserModule,

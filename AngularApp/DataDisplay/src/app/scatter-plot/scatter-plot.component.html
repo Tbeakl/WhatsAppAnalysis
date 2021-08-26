@@ -1,0 +1,12 @@
+<nz-card [nzTitle]="title" *ngIf="displayedData">
+    <div nz-row>
+        <div nz-col [nzSpan]="24">
+            <ngx-charts-bubble-chart
+                [results]="displayedData"
+                [scheme]="colourScheme"
+                [xAxisLabel]="xAxisLabel"
+                [yAxisLabel]="yAxisLabel"
+            ></ngx-charts-bubble-chart>
+        </div>
+    </div>
+</nz-card>

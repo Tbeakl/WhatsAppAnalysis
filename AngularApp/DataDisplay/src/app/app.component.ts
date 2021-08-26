@@ -15,6 +15,8 @@ export class AppComponent implements OnInit {
     public dateUsageData: valueByDate[] = this.getNumberOfMessagesSent(dateUsageDataImport);
     public dateAverageLengthData: valueByDate[] = this.getAverageMessageLength(dateUsageDataImport);
     public numberOfMessagesByUser: BarChartPoint[] = this.getNumberOfMessagesSentByUser(userSummaryImport);
+    public averageMessageLengthByUsers: BarChartPoint[] = this.getAverageMessageLengthByUser(userSummaryImport);
+    public averageMessageLengthAgainstNumberOfMessages: any[] = this.getAverageMessageLengthAgaistNumberOfMessages(userSummaryImport);
     public groupNamesImported: GroupName[] = groupNameImport;
     public groupNames: GroupName[] = [];
     public userSummaries: userSummaryDataStructure[] = userSummaryImport;
@@ -59,6 +61,32 @@ export class AppComponent implements OnInit {
         let output: BarChartPoint[] = [];
         userSummaryImport.forEach(user => {
             output.push({x: user.User, y:user.NumberOfMessagesSent});
+        });
+        return output;
+    }
+
+    public getAverageMessageLengthByUser(userSummaryImport: userSummaryDataStructure[]): BarChartPoint[] {
+        let output: BarChartPoint[] = [];
+        userSummaryImport.forEach(user => {
+            output.push({x: user.User, y:user.AverageMessageLength});
+        });
+        return output;
+    }
+
+    public getAverageMessageLengthAgaistNumberOfMessages(userSummaryImport: userSummaryDataStructure[]): any[] {
+        let output: any[] = [];
+        userSummaryImport.forEach(user => {
+            output.push({
+                "name": user.User,
+                "series": [
+                    {
+                        "name": "",
+                        "x": user.NumberOfMessagesSent,
+                        "y": user.AverageMessageLength,
+                        "r": 1
+                    }
+                ]
+            });
         });
         return output;
     }

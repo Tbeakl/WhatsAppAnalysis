@@ -4,6 +4,7 @@
     </div>
     <div nz-col [nzSpan]="16">
         <heat-map-calendar
+            *ngIf="dateUsageData"
             [data]="dateUsageData"
             [colourScheme]="colorScheme"
             title="Usage over time"
@@ -13,6 +14,7 @@
 <div nz-row [nzGutter]="8">
     <div nz-col [nzSpan]="16">
         <heat-map-calendar
+            *ngIf="dateAverageLengthData"
             [data]="dateAverageLengthData"
             [colourScheme]="colorScheme"
             title="Average message length over time"
@@ -26,18 +28,42 @@
 <div nz-row [nzGutter]="8">
     <div nz-col [nzSpan]="24">
         <bar-chart
-        [inputData]="numberOfMessagesByUser"
-        xAxisLabel="Users"
-        yAxisLabel="Number of Messages"
-        title="Number of messages sent by user"
-        [colourScheme]="colorScheme"
-        sortingScheme="Des"
-    ></bar-chart>
+            *ngIf="numberOfMessagesByUser"
+            [inputData]="numberOfMessagesByUser"
+            xAxisLabel="Users"
+            yAxisLabel="Number of Messages"
+            title="Number of messages sent by user"
+            [colourScheme]="colorScheme"
+            sortingScheme="Des"
+        ></bar-chart>
     </div>
 </div>
 
 <div nz-row [nzGutter]="8">
     <div nz-col [nzSpan]="8">
         <user-summary [importedData]="userSummaries"></user-summary>
+    </div>
+    <div nz-col [nzSpan]="16">
+        <scatter-plot
+            [displayedData]="averageMessageLengthAgainstNumberOfMessages"
+            [colourScheme]="colorScheme"
+            title="Average message length against number of messages sent"
+            xAxisLabel="Number of Messages"
+            yAxisLabel="Average Message Length"
+        ></scatter-plot>
+    </div>
+</div>
+
+<div nz-row [nzGutter]="8">
+    <div nz-col [nzSpan]="24">
+        <bar-chart
+            *ngIf="averageMessageLengthByUsers"
+            [inputData]="averageMessageLengthByUsers"
+            xAxisLabel="Users"
+            yAxisLabel="Average Length"
+            title="Average length of messages by user"
+            [colourScheme]="colorScheme"
+            sortingScheme="Des"
+        ></bar-chart>
     </div>
 </div>
