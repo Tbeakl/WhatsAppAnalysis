@@ -34,7 +34,8 @@ func makeUsernameConsistent(file []string, messageStartRegexp regexp.Regexp, wha
 	var output []string = make([]string, 0)
 	for i := len(file) - 1; i >= 0; i-- {
 		line := file[i]
-		if !messageStartRegexp.MatchString(line) && whatsAppNotificationRegexp.MatchString(line) {
+		isNotification := whatsAppNotificationRegexp.MatchString(line)
+		if isNotification && strings.LastIndex(line, ":") == 14 {
 			//This means that we have a notification from WhatsApp
 			if strings.Contains(line, " changed to ") {
 				oldName := strings.Split(line, " changed to ")[0][20:]
@@ -47,7 +48,7 @@ func makeUsernameConsistent(file []string, messageStartRegexp regexp.Regexp, wha
 				}
 				usernameChanger[oldName] = newName
 			}
-		} else if messageStartRegexp.MatchString(line) {
+		} else if isNotification {
 			indexOfSetInput := 20 + strings.Index(line[20:], ":")
 			user := line[20:indexOfSetInput]
 			newUser, ok := usernameChanger[user]
