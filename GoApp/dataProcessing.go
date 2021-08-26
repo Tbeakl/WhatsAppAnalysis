@@ -10,6 +10,7 @@ import (
 	"time"
 )
 
+//This reads in a given textfile, outputting each line into a separate element of the string slice
 func readInFile(filename string) []string {
 	file, err := os.Open(filename)
 
@@ -29,6 +30,7 @@ func readInFile(filename string) []string {
 	return textlines
 }
 
+//This makes sure that each person is only represented once even if they change phonenumber, provided WhatsApp gave the notification that their number changed.
 func makeUsernameConsistent(file []string, whatsAppNotificationRegexp regexp.Regexp) []string {
 	usernameChanger := make(map[string]string)
 	var output []string = make([]string, 0)
@@ -87,6 +89,7 @@ func removeAllNotifications(file []string, messageStartRegexp regexp.Regexp, wha
 	return output
 }
 
+//This changes the filtered list of messages into an actual slice of messages
 func makeIntoMessages(file []string, messageStartRegexp regexp.Regexp) []message {
 	lastLine := ""
 	var messages []message = make([]message, 0)
@@ -115,6 +118,7 @@ func makeIntoMessages(file []string, messageStartRegexp regexp.Regexp) []message
 	return messages
 }
 
+//This turns a message slice into a map where you can efficiently lookup by user
 func splitByUsers(messages []message) map[string][]userMessage {
 	var messagesByUser map[string][]userMessage = make(map[string][]userMessage)
 
@@ -125,6 +129,7 @@ func splitByUsers(messages []message) map[string][]userMessage {
 	return messagesByUser
 }
 
+//This turns a message slice into a map where you can efficiently lookup by date
 func splitByDay(messages []message) map[time.Time][]dateMessage {
 	output := make(map[time.Time][]dateMessage)
 	for _, message := range messages {

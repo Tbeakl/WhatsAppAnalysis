@@ -24,11 +24,6 @@ type dateMessage struct {
 	User    string `json:"User"`
 }
 
-type barChartOutput struct {
-	X string `json:"x"`
-	Y int    `json:"y"`
-}
-
 type lineChartOutput struct {
 	X int `json:"x"`
 	Y int `json:"y"`
