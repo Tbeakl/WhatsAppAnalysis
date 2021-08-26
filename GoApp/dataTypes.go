@@ -43,15 +43,16 @@ type daySummaryInfo struct {
 }
 
 type overallSummaryInfo struct {
-	MostPopularMessage               string `json:"MostPopularMessage"`
-	MostPopularMessageCount          int    `json:"MostPopularMessageCount"`
-	NumberOfMediaMessages            int    `json:"NumberOfMediaMessages"`
-	NumberOfDeletedMessages          int    `json:"NumberOfDeletedMessages"`
-	NumberOfMessagesSent             int    `json:"NumberOfMessagesSent"`
-	NumberOfDaysWithActivity         int    `json:"NumberOfDaysWithActivity"`
-	NumberOfDaysAnalysed             int    `json:"NumberOfDaysAnalysed"`
-	MostActiveUser                   string `json:"MostActiveUser"`
-	NumberOfMessagesByMostActiveUser int    `json:"NumberOfMessagesByMostActiveUser"`
+	MostPopularMessage               string  `json:"MostPopularMessage"`
+	MostPopularMessageCount          int     `json:"MostPopularMessageCount"`
+	NumberOfMediaMessages            int     `json:"NumberOfMediaMessages"`
+	NumberOfDeletedMessages          int     `json:"NumberOfDeletedMessages"`
+	NumberOfMessagesSent             int     `json:"NumberOfMessagesSent"`
+	AverageMessageLength             float64 `json:"AverageMessageLength"`
+	NumberOfDaysWithActivity         int     `json:"NumberOfDaysWithActivity"`
+	NumberOfDaysAnalysed             int     `json:"NumberOfDaysAnalysed"`
+	MostActiveUser                   string  `json:"MostActiveUser"`
+	NumberOfMessagesByMostActiveUser int     `json:"NumberOfMessagesByMostActiveUser"`
 }
 
 type line struct {

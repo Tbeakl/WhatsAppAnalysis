@@ -12,20 +12,6 @@ import (
 	"time"
 )
 
-// func numberOfMessagesByUsers(messagesByUsers map[string][]userMessage, baseFileName string) {
-// 	var numberOfMessages []barChartOutput
-// 	for user, messages := range messagesByUsers {
-// 		numberOfMessages = append(numberOfMessages, barChartOutput{X: user, Y: len(messages)})
-// 	}
-// 	jsonData, _ := json.Marshal(numberOfMessages)
-// 	ioutil.WriteFile(baseFileName+"\\NumberOfMessages_Users.json", jsonData, os.ModePerm)
-// 	var frequencies []int
-// 	for _, v := range numberOfMessages {
-// 		frequencies = append(frequencies, v.Y)
-// 	}
-// 	createZipfLawPlot(frequencies, baseFileName+"\\NumberOfMessages_Users_")
-// }
-
 func createZipfLawPlot(frequencies []int, baseFileName string) {
 	type outputStyle struct {
 		Line   line    `json:"line"`
@@ -43,64 +29,6 @@ func createZipfLawPlot(frequencies []int, baseFileName string) {
 	jsonData, _ := json.Marshal(output)
 	ioutil.WriteFile(baseFileName+"\\MessagesByUser_ZipfsPlot.json", jsonData, os.ModePerm)
 }
-
-// func numberOfMessagesByLengthCharactersByUsers(messagesByUsers map[string][]userMessage, baseFileName string) {
-// 	type outputStyle struct {
-// 		User   string            `json:"user"`
-// 		Series []lineChartOutput `json:"series"`
-// 	}
-// 	var numberOfMessagesLengthPerUsers []outputStyle = make([]outputStyle, 0)
-// 	maxLength := 0
-// 	for _, messages := range messagesByUsers {
-// 		messagesContent := extractUserMessageContent(messages)
-// 		if findMaxStringLengthCharacters(messagesContent...) > maxLength {
-// 			maxLength = findMaxStringLengthCharacters(messagesContent...)
-// 		}
-// 	}
-
-// 	for user, messages := range messagesByUsers {
-// 		var countOfLength []lineChartOutput = make([]lineChartOutput, maxLength+1)
-// 		for i := 0; i < len(countOfLength); i++ {
-// 			countOfLength[i].X = i
-// 		}
-// 		for _, message := range messages {
-// 			countOfLength[len(message.Content)].Y++
-// 		}
-// 		numberOfMessagesLengthPerUsers = append(numberOfMessagesLengthPerUsers, outputStyle{User: user, Series: countOfLength})
-
-// 	}
-// 	jsonData, _ := json.Marshal(numberOfMessagesLengthPerUsers)
-// 	ioutil.WriteFile(baseFileName+"\\NumberOfMessages_LengthCharacters_Users.json", jsonData, os.ModePerm)
-// }
-
-// func numberOfMessagesByLengthWordsByUsers(messagesByUsers map[string][]userMessage, baseFileName string) {
-// 	type outputStyle struct {
-// 		User   string            `json:"user"`
-// 		Series []lineChartOutput `json:"series"`
-// 	}
-// 	var numberOfMessagesLengthPerUsers []outputStyle = make([]outputStyle, 0)
-// 	maxLength := 0
-// 	for _, messages := range messagesByUsers {
-// 		messagesContent := extractUserMessageContent(messages)
-// 		if findMaxStringLengthWords(messagesContent...) > maxLength {
-// 			maxLength = findMaxStringLengthWords(messagesContent...)
-// 		}
-// 	}
-
-// 	for user, messages := range messagesByUsers {
-// 		var countOfLength []lineChartOutput = make([]lineChartOutput, maxLength+1)
-// 		for i := 0; i < len(countOfLength); i++ {
-// 			countOfLength[i].X = i
-// 		}
-// 		for _, message := range messages {
-// 			countOfLength[findMaxStringLengthWords(message.Content)].Y++
-// 		}
-// 		numberOfMessagesLengthPerUsers = append(numberOfMessagesLengthPerUsers, outputStyle{User: user, Series: countOfLength})
-
-// 	}
-// 	jsonData, _ := json.Marshal(numberOfMessagesLengthPerUsers)
-// 	ioutil.WriteFile(baseFileName+"\\NumberOfMessages_LengthWords_Users.json", jsonData, os.ModePerm)
-// }
 
 func allNameChanges(file []string, messageStartRegexp regexp.Regexp, whatsAppNotificationRegexp regexp.Regexp, baseFileName string) {
 	groupNames := make([]nameChange, 0)
@@ -161,8 +89,9 @@ func basicSummary(messagesByDate map[time.Time][]dateMessage, messagesByUser map
 		NumberOfMessagesSent:             len(messages),
 		NumberOfMediaMessages:            countOfString("<Media omitted>", messagesContent),
 		NumberOfDeletedMessages:          countOfString("This message was deleted", messagesContent),
+		AverageMessageLength:             averageNumberOfWords(messagesContent...),
 		NumberOfDaysWithActivity:         len(messagesByDate),
-		NumberOfDaysAnalysed:             int(endDate.Sub(startDate).Hours() / 24),
+		NumberOfDaysAnalysed:             int(startDate.Sub(endDate).Hours() / 24),
 		MostActiveUser:                   mostActiveUser,
 		NumberOfMessagesByMostActiveUser: len(messagesByUser[mostActiveUser])}
 	jsonData, _ := json.Marshal(result)

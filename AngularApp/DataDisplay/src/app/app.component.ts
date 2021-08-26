@@ -98,6 +98,7 @@ export interface summaryDataStructure {
     NumberOfMediaMessages: number;
     NumberOfDeletedMessages: number;
     NumberOfMessagesSent: number;
+    AverageMessageLength: number;
     NumberOfDaysWithActivity: number;
     NumberOfDaysAnalysed: number;
     MostActiveUser: string;
