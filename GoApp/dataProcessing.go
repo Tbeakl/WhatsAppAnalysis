@@ -29,7 +29,7 @@ func readInFile(filename string) []string {
 	return textlines
 }
 
-func makeUsernameConsistent(file []string, messageStartRegexp regexp.Regexp, whatsAppNotificationRegexp regexp.Regexp) []string {
+func makeUsernameConsistent(file []string, whatsAppNotificationRegexp regexp.Regexp) []string {
 	usernameChanger := make(map[string]string)
 	var output []string = make([]string, 0)
 	for i := len(file) - 1; i >= 0; i-- {

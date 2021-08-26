@@ -26,7 +26,7 @@ func main() {
 	}
 	fmt.Println("Compiled Regexp")
 	//Here is the initial data preprocessing, this is where the application is the slowest
-	textlines = makeUsernameConsistent(textlines, *messageStartRegexp, *whatsAppNotificationRegexp)
+	textlines = makeUsernameConsistent(textlines, *whatsAppNotificationRegexp)
 	fmt.Println("Made names consistent")
 	textlines = removeUnusedNotifications(textlines, *messageStartRegexp, *whatsAppNotificationRegexp)
 	fmt.Println("Removed the unused whatsapp notifications")
