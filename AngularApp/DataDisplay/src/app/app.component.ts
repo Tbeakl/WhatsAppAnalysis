@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import summaryDataImport from '../../data/Summary.json';
 import dateUsageDataImport from '../../data/DateSummary.json';
-import userSummaryImport from '../../data/UserSummary.json'
-import groupNameImport from '../../data/GroupNames.json'
+import userSummaryImport from '../../data/UserSummary.json';
+import groupNameImport from '../../data/GroupNames.json';
+import timeUsageImport from '../../data/NumberOfMessages_Time.json';
 
 @Component({
     selector: 'app-root',
@@ -20,6 +21,7 @@ export class AppComponent implements OnInit {
     public groupNamesImported: GroupName[] = groupNameImport;
     public groupNames: GroupName[] = [];
     public userSummaries: userSummaryDataStructure[] = userSummaryImport;
+    public timeSummary: LineChartPoint[] = timeUsageImport;
 
     public ngOnInit() {
         this.groupNames = this.groupNamesImported.map(item => {
@@ -133,6 +135,10 @@ export interface BarChartPoint {
     y: number;
 }
 
+export interface LineChartPoint {
+    x: number;
+    y: number;
+}
 export interface GroupName {
     Name: string;
     Date: Date;

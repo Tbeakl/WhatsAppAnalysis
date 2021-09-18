@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { BarChartPoint, GroupName, summaryDataStructure, userSummaryDataStructure, valueByDate } from '../app.component';
+import { BarChartPoint, GroupName, LineChartPoint, summaryDataStructure, userSummaryDataStructure, valueByDate } from '../app.component';
 
 @Component({
 	selector: 'data-grid',
@@ -15,6 +15,7 @@ export class DataGridComponent implements OnInit {
 	@Input() userSummaries?: userSummaryDataStructure[];
 	@Input() averageMessageLengthByUsers?: BarChartPoint[];
 	@Input() averageMessageLengthAgainstNumberOfMessages?: any[];
+	@Input() usageOverTime?: LineChartPoint[];
 
 	public colorScheme = {
 		domain: [

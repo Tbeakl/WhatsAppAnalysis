@@ -1,0 +1,18 @@
+<nz-card [nzTitle]="title">
+    <div nz-row>
+        <div nz-col [nzSpan]="24">
+            <ngx-charts-line-chart
+                [scheme]="colourScheme"
+                [xAxisLabel]="xAxisLabel"
+                [yAxisLabel]="yAxisLabel"
+                [xAxis]="true"
+                [yAxis]="true"
+                [showXAxisLabel]="true"
+                [showYAxisLabel]="true"
+                [results]="displayData"
+                [tooltipDisabled]="true"
+                [curve]="curve"
+            ></ngx-charts-line-chart>
+        </div>
+    </div>
+</nz-card>

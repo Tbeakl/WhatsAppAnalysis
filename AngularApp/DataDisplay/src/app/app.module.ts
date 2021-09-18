@@ -26,6 +26,7 @@ import { NzInputModule } from 'ng-zorro-antd/input';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { UserSummaryComponent } from './user-summary/user-summary.component';
 import { ScatterPlotComponent } from './scatter-plot/scatter-plot.component';
+import { LineChartComponent } from './line-chart/line-chart.component';
 
 registerLocaleData(uk);
 
@@ -38,7 +39,8 @@ registerLocaleData(uk);
     BarChartComponent,
     GroupNamesComponent,
     UserSummaryComponent,
-    ScatterPlotComponent
+    ScatterPlotComponent,
+    LineChartComponent
   ],
   imports: [
     BrowserModule,
