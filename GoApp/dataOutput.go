@@ -129,4 +129,6 @@ func basicSummaryPerUser(messagesByUsers map[string][]userMessage, baseFileName 
 	}
 	jsonData, _ := json.Marshal(output)
 	ioutil.WriteFile(baseFileName+"\\UserSummary.json", jsonData, os.ModePerm)
+	//Here we can also give an output for loglog plot
+	createZipfLawPlot(extractNumberOfMessagesSent(output...), baseFileName)
 }

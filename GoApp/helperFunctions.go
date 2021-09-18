@@ -179,3 +179,11 @@ func leastSquares(series map[point]float64) line {
 	yIntercept := yMean - xMean*gradient
 	return line{Gradient: gradient, YIntercept: yIntercept}
 }
+
+func extractNumberOfMessagesSent(userSummaries ...userSummary) []int {
+	var output []int
+	for _, v := range userSummaries {
+		output = append(output, v.NumberOfMessagesSent)
+	}
+	return output
+}
